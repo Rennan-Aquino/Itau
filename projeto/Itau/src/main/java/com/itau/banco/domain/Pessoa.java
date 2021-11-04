@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -21,7 +22,7 @@ public class Pessoa {
     private Integer id;
     private String cpf;
     private String nome;
-    private LocalDate dataNascimento;
+    private LocalDateTime dataNascimento;
     private String rg;
     private String telefone;
     private String email;
