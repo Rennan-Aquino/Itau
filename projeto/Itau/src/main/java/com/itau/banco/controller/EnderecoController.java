@@ -1,7 +1,7 @@
 package com.itau.banco.controller;
 
 import com.itau.banco.domain.Endereco;
-import com.itau.banco.service.EnderecoService;
+import com.itau.banco.repository.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,18 +16,18 @@ import java.util.List;
 public class EnderecoController {
 
     @Autowired
-    private EnderecoService enderecoService;
+    private EnderecoRepository enderecoRepository;
 
     @GetMapping
     public ResponseEntity<List> findAll() {
-        List<Endereco> list = enderecoService.findAll();
+        List<Endereco> list = enderecoRepository.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Endereco> findById(@PathVariable Integer id) {
-        Endereco obj = enderecoService.findById(id);
-        return ResponseEntity.ok().body(obj);
+        enderecoRepository.findById(id);
+        return ResponseEntity.of(enderecoRepository.findById(id));
     }
 
 }
