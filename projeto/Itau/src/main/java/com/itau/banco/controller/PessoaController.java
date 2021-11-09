@@ -28,6 +28,11 @@ public class PessoaController {
         return ResponseEntity.ok().body(list);
     }
 
+    @GetMapping("/por-cpf/{cpf}")
+    public List<Pessoa> getCpf(@PathVariable String cpf) {
+        return pessoaRepository.findByCpf(cpf);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Pessoa> findById(@PathVariable Integer id) {
         return ResponseEntity.of(pessoaRepository.findById(id));
@@ -38,12 +43,10 @@ public class PessoaController {
                                           @PathVariable Double renda,                                 //yyyy-mm-dd
                                           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@PathVariable LocalDate data){
 
-        List<Pessoa> list = pessoaRepository.findAll();
+        List<Pessoa> list = pessoaRepository.findByCpf(cpf);
         for (Pessoa p : list) {
-            if (p.getCpf().equals(cpf) && p.getDataNascimento().equals(data)) {
                 String totalRenda = String.format("Renda: R$ %.2f", (renda * 0.30));
                 return ResponseEntity.ok().body(totalRenda);
-            }
         }
         return ResponseEntity.notFound().build();
     }
@@ -72,4 +75,14 @@ public class PessoaController {
         }
         return ResponseEntity.status(404).build();
     }
+
+//    @PutMapping("/autenticacao/{status}")
+//    public ResponseEntity updateStatus(@PathVariable String status, @RequestBody Pessoa pessoa) {
+//        if(pessoaRepository.findByStatus(status)) {
+//            pessoa.setStatus(status);
+//            pessoaRepository.save(pessoa);
+//            return ResponseEntity.status(200).build();
+//        }
+//        return ResponseEntity.status(404).build();
+//    }
 }

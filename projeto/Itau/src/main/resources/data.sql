@@ -1,0 +1,14 @@
+insert into Pessoa
+(id_usuario, cpf, nome, data_nascimento,rg, telefone, email, endereco, numero, complemento)
+values
+(null, '48492335890', 'Andre Silva', '2000-11-22', '47283456', '11992831547', 'andre.silva@hotmail.com',
+ 'Rua Dos Almirantes', 220, 'Casa'),
+
+(null, '38442355680', 'Amanda Brandão', '1998-04-29', '6378288', '22992812756', 'amanda.bradao@gmail.com.br',
+ 'Rua Das Rosas', 10, 'Apartamento Bloco A'),
+
+(null, '28882399690', 'Lucas Souza', '1978-02-26', '47283456', '68982820666', 'lucas.souza@yahoo.com',
+ 'Av. Colorado', 33, 'Apartamento Bloco C'),
+
+(null, '39992329630', 'Helena de Souza', '1988-12-26', '27283456', '34926624666', 'helena.souza@gmail.com',
+ 'Av. Colorado', 433, 'Casa');

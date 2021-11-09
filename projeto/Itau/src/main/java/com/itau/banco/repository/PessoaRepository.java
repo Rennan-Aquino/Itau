@@ -4,8 +4,10 @@ import com.itau.banco.domain.Pessoa;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 //import java.time.LocalDate;
-//import java.util.List;
+import java.util.List;
 
 public interface PessoaRepository extends JpaRepository <Pessoa, Integer> {
-    //List<Pessoa> consultarPorParametros(String cpf, double renda, LocalDate data);
+   List<Pessoa> findByCpf(String cpf); //consultar pessoa por cpf
+
+  // boolean findByStatus(String status);
 }

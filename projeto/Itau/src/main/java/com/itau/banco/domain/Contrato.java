@@ -2,11 +2,8 @@ package com.itau.banco.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.time.LocalDate;
+import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -20,9 +17,16 @@ public class Contrato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private LocalDateTime dataInicio;
+
     private LocalDateTime dataFim;
+
     private int qtdParcelas;
-    private double valorLiquido;
-    private double valorBruto;
+    @ManyToOne
+    private Pessoa pessoa;
+
+    private BigDecimal valorLiquido;
+
+    private BigDecimal valorBruto;
 }
