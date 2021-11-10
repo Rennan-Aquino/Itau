@@ -1,5 +1,6 @@
 package com.itau.banco.controller;
 
+import com.itau.banco.domain.enums.AutenticaStatus;
 import com.itau.banco.domain.Pessoa;
 import com.itau.banco.repository.PessoaRepository;
 import lombok.extern.log4j.Log4j2;
@@ -76,13 +77,27 @@ public class PessoaController {
         return ResponseEntity.status(404).build();
     }
 
-//    @PutMapping("/autenticacao/{status}")
-//    public ResponseEntity updateStatus(@PathVariable String status, @RequestBody Pessoa pessoa) {
-//        if(pessoaRepository.findByStatus(status)) {
-//            pessoa.setStatus(status);
+    @PostMapping("/autenticacao/{id}")
+    public ResponseEntity updateStatus(@PathVariable int id) {
+        if (pessoaRepository.existsById(id)) {
+            Pessoa pessoa = pessoaRepository.getById(id);
+            pessoa.setAutenticado("");
+            pessoaRepository.save(pessoa);
+            return ResponseEntity.status(200).build();
+        }
+        return ResponseEntity.status(404).build();
+    }
+
+//    @PostMapping("/autenticacao/{id}")
+//    public ResponseEntity updateStatus(@PathVariable int id) {
+//        if (pessoaRepository.existsById(id)) {
+//            Pessoa pessoa = pessoaRepository.getById(id);
+//            pessoa.setAutenticado(AutenticaStatus.valueOf(1,"1"));
+//            pessoa.setAutenticado(AutenticaStatus.valueOf(0, "0"));
 //            pessoaRepository.save(pessoa);
 //            return ResponseEntity.status(200).build();
 //        }
 //        return ResponseEntity.status(404).build();
 //    }
+
 }

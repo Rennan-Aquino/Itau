@@ -1,6 +1,7 @@
 package com.itau.banco.controller;
 
 import com.itau.banco.domain.Contrato;
+import com.itau.banco.domain.Pessoa;
 import com.itau.banco.repository.ContratoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,12 +29,28 @@ public class ContratoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deletePessoa(@PathVariable int id) {
+    public ResponseEntity deleteContrato(@PathVariable int id) {
         if (contratoRepository.existsById(id)) {
             contratoRepository.deleteById(id);
             return ResponseEntity.status(200).build();
         }
         return ResponseEntity.status(404).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity atualizarContrato(@PathVariable int id, Contrato contrato) {
+        if (contratoRepository.existsById(id)) {
+            contrato.setId(id);
+            contratoRepository.save(contrato);
+            return ResponseEntity.status(200).build();
+        }
+        return ResponseEntity.status(404).build();
+    }
+
+    @PostMapping
+    public ResponseEntity<Contrato> save(@RequestBody Contrato novoContrato) {
+        contratoRepository.save(novoContrato);
+        return ResponseEntity.status(201).build();
     }
 
 }

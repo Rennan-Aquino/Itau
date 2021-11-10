@@ -1,11 +1,10 @@
 package com.itau.banco.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.itau.banco.domain.enums.AutenticaStatus;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Data
 @Getter
@@ -28,8 +27,12 @@ public class Pessoa {
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
-//    @Column(name = "status")
-//    private String status;
+    @ManyToOne
+    private Contrato contrato;
+
+    private String autenticado;
+//    @Column(name = "autenticado")
+//    private Boolean autenticado;
 
     @Column(name = "rg", length = 8)
     private String rg;
@@ -52,4 +55,6 @@ public class Pessoa {
     public Pessoa() {
 
     }
+
+
 }

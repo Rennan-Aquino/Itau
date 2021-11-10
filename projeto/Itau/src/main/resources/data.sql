@@ -1,3 +1,5 @@
+
+
 insert into Pessoa
 (id_usuario, cpf, nome, data_nascimento,rg, telefone, email, endereco, numero, complemento)
 values
@@ -12,3 +14,7 @@ values
 
 (null, '39992329630', 'Helena de Souza', '1988-12-26', '27283456', '34926624666', 'helena.souza@gmail.com',
  'Av. Colorado', 433, 'Casa');
+
+insert into Contrato
+(id, data_inicio, data_final, quantidade_parcelas, valor_liquido, valor_bruto)
+values (null, '2021-10-30', '2023-10-30', 4, 1.000, 1.500);

@@ -18,15 +18,21 @@ public class Contrato {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "data_inicio")
     private LocalDateTime dataInicio;
 
+    @Column(name = "data_final")
     private LocalDateTime dataFim;
 
-    private int qtdParcelas;
+    @Column(name = "quantidade_parcelas")
+    private Integer qtdParcelas;
+
     @ManyToOne
     private Pessoa pessoa;
 
+    @Column(name = "valor_liquido'")
     private BigDecimal valorLiquido;
 
+    @Column(name = "valor_bruto")
     private BigDecimal valorBruto;
 }
