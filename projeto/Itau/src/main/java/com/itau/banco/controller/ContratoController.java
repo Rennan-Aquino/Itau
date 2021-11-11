@@ -1,9 +1,9 @@
 package com.itau.banco.controller;
 
 import com.itau.banco.domain.Contrato;
-import com.itau.banco.domain.Pessoa;
 import com.itau.banco.repository.ContratoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +19,7 @@ public class ContratoController {
     @GetMapping
     public ResponseEntity<List> findAll() {
         List<Contrato> list = contratoRepository.findAll();
-        return ResponseEntity.ok().body(list);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -32,25 +32,25 @@ public class ContratoController {
     public ResponseEntity deleteContrato(@PathVariable int id) {
         if (contratoRepository.existsById(id)) {
             contratoRepository.deleteById(id);
-            return ResponseEntity.status(200).build();
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        return ResponseEntity.status(404).build();
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity atualizarContrato(@PathVariable int id, Contrato contrato) {
         if (contratoRepository.existsById(id)) {
-            contrato.setId(id);
+            contrato.setId_contrato(id);
             contratoRepository.save(contrato);
-            return ResponseEntity.status(200).build();
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        return ResponseEntity.status(404).build();
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping
     public ResponseEntity<Contrato> save(@RequestBody Contrato novoContrato) {
         contratoRepository.save(novoContrato);
-        return ResponseEntity.status(201).build();
+        return new ResponseEntity<>(contratoRepository.save(novoContrato), HttpStatus.CREATED);
     }
 
 }

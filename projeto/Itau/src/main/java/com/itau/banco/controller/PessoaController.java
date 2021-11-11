@@ -1,11 +1,12 @@
 package com.itau.banco.controller;
 
-import com.itau.banco.domain.enums.AutenticaStatus;
+
 import com.itau.banco.domain.Pessoa;
 import com.itau.banco.repository.PessoaRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,15 +21,6 @@ public class PessoaController {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    @GetMapping
-    public ResponseEntity findAll() {
-        List<Pessoa> list = pessoaRepository.findAll();
-        if (list.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok().body(list);
-    }
-
     @GetMapping("/por-cpf/{cpf}")
     public List<Pessoa> getCpf(@PathVariable String cpf) {
         return pessoaRepository.findByCpf(cpf);
@@ -42,62 +34,49 @@ public class PessoaController {
     @GetMapping("/consultar-limite/{cpf}/{renda}/{data}")
     public ResponseEntity consultarLimite(@PathVariable String cpf,
                                           @PathVariable Double renda,                                 //yyyy-mm-dd
-                                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@PathVariable LocalDate data){
+                                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable LocalDate data) {
 
         List<Pessoa> list = pessoaRepository.findByCpf(cpf);
         for (Pessoa p : list) {
-                String totalRenda = String.format("Renda: R$ %.2f", (renda * 0.30));
-                return ResponseEntity.ok().body(totalRenda);
+            String totalRenda = String.format("Renda: R$ %.2f", (renda * 0.30));
+            return new ResponseEntity<>(totalRenda, HttpStatus.OK);
         }
-        return ResponseEntity.notFound().build();
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping
     public ResponseEntity<Pessoa> save(@RequestBody Pessoa novaPessoa) {
         pessoaRepository.save(novaPessoa);
-        return ResponseEntity.status(201).build();
+        return new ResponseEntity<>(pessoaRepository.save(novaPessoa), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deletePessoa(@PathVariable int id) {
         if (pessoaRepository.existsById(id)) {
             pessoaRepository.deleteById(id);
-            return ResponseEntity.status(200).build();
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        return ResponseEntity.status(404).build();
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity atualizarPessoa(@PathVariable int id, @RequestBody Pessoa pessoa) {
         if (pessoaRepository.existsById(id)) {
-            pessoa.setId(id);
+            pessoa.setId_usuario(id);
             pessoaRepository.save(pessoa);
-            return ResponseEntity.status(200).build();
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        return ResponseEntity.status(404).build();
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/autenticacao/{id}")
     public ResponseEntity updateStatus(@PathVariable int id) {
         if (pessoaRepository.existsById(id)) {
             Pessoa pessoa = pessoaRepository.getById(id);
-            pessoa.setAutenticado("");
+            pessoa.setAutenticado(false);
             pessoaRepository.save(pessoa);
-            return ResponseEntity.status(200).build();
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        return ResponseEntity.status(404).build();
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-
-//    @PostMapping("/autenticacao/{id}")
-//    public ResponseEntity updateStatus(@PathVariable int id) {
-//        if (pessoaRepository.existsById(id)) {
-//            Pessoa pessoa = pessoaRepository.getById(id);
-//            pessoa.setAutenticado(AutenticaStatus.valueOf(1,"1"));
-//            pessoa.setAutenticado(AutenticaStatus.valueOf(0, "0"));
-//            pessoaRepository.save(pessoa);
-//            return ResponseEntity.status(200).build();
-//        }
-//        return ResponseEntity.status(404).build();
-//    }
-
 }

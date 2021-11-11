@@ -5,18 +5,20 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Getter
 @Setter
 @AllArgsConstructor
 @Entity
+@Table(name = "tb_pessoa")
 
 public class Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario", nullable = false)
-    private Integer id;
+    private Integer id_usuario;
 
     @Column(name = "cpf", length = 11)
     private String cpf;
@@ -27,12 +29,12 @@ public class Pessoa {
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
-    @ManyToOne
-    private Contrato contrato;
+    @OneToMany(mappedBy = "id_contrato")
+    //@JoinColumn(name="id_contrato")
+    private List<Contrato> contratos;
 
-    private String autenticado;
-//    @Column(name = "autenticado")
-//    private Boolean autenticado;
+    @Column(name = "autenticado")
+    private Boolean autenticado;
 
     @Column(name = "rg", length = 8)
     private String rg;
@@ -55,6 +57,5 @@ public class Pessoa {
     public Pessoa() {
 
     }
-
 
 }
