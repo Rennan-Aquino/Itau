@@ -11,13 +11,14 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "tb_pessoa")
 
 public class Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario", nullable = false)
+    @Column(name = "id_pessoa", nullable = false)
     private Integer id_usuario;
 
     @Column(name = "cpf", length = 11)
@@ -30,8 +31,10 @@ public class Pessoa {
     private LocalDate dataNascimento;
 
     @OneToMany(mappedBy = "id_contrato")
-    //@JoinColumn(name="id_contrato")
     private List<Contrato> contratos;
+
+    @OneToMany(mappedBy = "id_endereco")
+    private List<Endereco> enderecos;
 
     @Column(name = "autenticado")
     private Boolean autenticado;
@@ -44,18 +47,5 @@ public class Pessoa {
 
     @Column(name = "email")
     private String email;
-
-    @Column(name = "endereco")
-    private String endereco;
-
-    @Column(name = "numero")
-    private String numero;
-
-    @Column(name = "complemento")
-    private String complemento;
-
-    public Pessoa() {
-
-    }
 
 }

@@ -1,10 +1,13 @@
 package com.itau.banco.controller;
 
 
+import com.itau.banco.domain.Endereco;
 import com.itau.banco.domain.Pessoa;
 import com.itau.banco.repository.PessoaRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,11 @@ public class PessoaController {
 
     @Autowired
     private PessoaRepository pessoaRepository;
+
+    @GetMapping
+    public Page<Pessoa> listAll(Pageable pageable) {
+        return pessoaRepository.findAll(pageable);
+    }
 
     @GetMapping("/por-cpf/{cpf}")
     public List<Pessoa> getCpf(@PathVariable String cpf) {

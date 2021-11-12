@@ -27,7 +27,7 @@ public class Contrato {
 
     @OneToMany(mappedBy = "id_usuario")
     private List<Pessoa> pessoas;
-
+    
     @Column(name = "data_inicio")
     private LocalDateTime dataInicio;
 
