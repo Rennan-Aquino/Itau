@@ -1,8 +1,6 @@
 package com.itau.banco.domain;
 
-import com.itau.banco.domain.enums.AutenticaStatus;
 import lombok.*;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;

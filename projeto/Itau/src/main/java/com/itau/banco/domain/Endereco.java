@@ -1,7 +1,6 @@
 package com.itau.banco.domain;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.List;
 import java.util.Map.Entry;
