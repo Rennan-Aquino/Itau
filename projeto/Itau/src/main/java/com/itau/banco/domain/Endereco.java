@@ -19,8 +19,8 @@ public class Endereco {
     @Column(name = "id_endereco", nullable = false)
     private Integer id_endereco;
 
-    @OneToMany(mappedBy = "id_usuario")
-    private List<Pessoa> pessoas;
+//    @OneToMany(mappedBy = "id_usuario")
+//    private List<Pessoa> pessoas;
 
     @Column(name = "logradouro")
     private String logradouro;

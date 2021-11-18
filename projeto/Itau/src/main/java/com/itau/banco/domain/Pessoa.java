@@ -1,6 +1,7 @@
 package com.itau.banco.domain;
 
 import lombok.*;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -28,10 +29,12 @@ public class Pessoa {
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
-    @OneToMany(mappedBy = "id_contrato")
+    @OneToMany
+    @JoinColumn(name = "id_pessoa")
     private List<Contrato> contratos;
 
-    @OneToMany(mappedBy = "id_endereco")
+    @OneToMany
+    @JoinColumn(name = "id_pessoa")
     private List<Endereco> enderecos;
 
     @Column(name = "autenticado")

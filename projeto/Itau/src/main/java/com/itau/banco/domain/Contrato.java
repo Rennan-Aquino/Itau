@@ -24,8 +24,8 @@ public class Contrato {
     @Column(name = "id_contrato", nullable = false)
     private Integer id_contrato;
 
-    @OneToMany(mappedBy = "id_usuario")
-    private List<Pessoa> pessoas;
+//    @OneToMany(mappedBy = "id_usuario")
+//    private List<Pessoa> pessoas;
     
     @Column(name = "data_inicio")
     private LocalDateTime dataInicio;

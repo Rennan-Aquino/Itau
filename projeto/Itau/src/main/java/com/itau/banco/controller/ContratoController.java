@@ -52,5 +52,4 @@ public class ContratoController {
         contratoRepository.save(novoContrato);
         return new ResponseEntity<>(contratoRepository.save(novoContrato), HttpStatus.CREATED);
     }
-
 }

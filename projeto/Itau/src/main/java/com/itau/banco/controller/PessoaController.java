@@ -29,8 +29,9 @@ public class PessoaController {
     }
 
     @GetMapping("/por-cpf/{cpf}")
-    public List<Pessoa> getCpf(@PathVariable String cpf) {
-        return pessoaRepository.findByCpf(cpf);
+    public Pessoa getCpf(@PathVariable String cpf) {
+        Pessoa usuario = pessoaRepository.findByCpf(cpf);
+        return usuario;
     }
 
     @GetMapping("/{id}")
@@ -43,12 +44,9 @@ public class PessoaController {
                                           @PathVariable Double renda,                                 //yyyy-mm-dd
                                           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable LocalDate data) {
 
-        List<Pessoa> list = pessoaRepository.findByCpf(cpf);
-        for (Pessoa p : list) {
-            String totalRenda = String.format("Renda: R$ %.2f", (renda * 0.30));
-            return new ResponseEntity<>(totalRenda, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        pessoaRepository.findByCpf(cpf);
+        String totalRenda = String.format("Renda: R$ %.2f", (renda * 0.30));
+        return new ResponseEntity<>(totalRenda, HttpStatus.OK);
     }
 
     @PostMapping

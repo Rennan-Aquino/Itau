@@ -5,10 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 
 public interface PessoaRepository extends JpaRepository <Pessoa, Integer> {
-   List<Pessoa> findByCpf(String cpf); //consultar pessoa por cpf
+   Pessoa findByCpf(String cpf); //consultar pessoa por cpf
 
    Page<Pessoa> findAll(Pageable pageable);
 }
