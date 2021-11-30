@@ -29,14 +29,6 @@ public class Pessoa {
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
-    @OneToMany
-    @JoinColumn(name = "id_pessoa")
-    private List<Contrato> contratos;
-
-    @OneToMany
-    @JoinColumn(name = "id_pessoa")
-    private List<Endereco> enderecos;
-
     @Column(name = "autenticado")
     private Boolean autenticado;
 
@@ -50,3 +42,18 @@ public class Pessoa {
     private String email;
 
 }
+
+
+//    @OneToMany
+//    @JoinColumn(name = "id_endereco")
+//    private List<Endereco> enderecos;
+
+
+
+//    @OneToOne(mappedBy = "pessoas")
+//    private Contrato contrato;
+
+
+//    @ManyToOne
+//    @JoinColumn(name = "id_endereco")
+//    private Endereco endereco;

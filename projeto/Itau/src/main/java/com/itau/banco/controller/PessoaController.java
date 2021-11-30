@@ -1,6 +1,6 @@
 package com.itau.banco.controller;
 
-import com.itau.banco.domain.Endereco;
+import com.itau.banco.Response.PessoaResponse;
 import com.itau.banco.domain.Pessoa;
 import com.itau.banco.repository.PessoaRepository;
 import lombok.extern.log4j.Log4j2;
@@ -26,6 +26,17 @@ public class PessoaController {
     @GetMapping
     public Page<Pessoa> listAll(Pageable pageable) {
         return pessoaRepository.findAll(pageable);
+    }
+
+    @GetMapping("/usuario")
+    public List<PessoaResponse> getResponse() {
+        return pessoaRepository.listarPessoaResponse();
+    }
+
+    @GetMapping("/usuario-cpf/{cpf}")
+        public Pessoa getUsuario(@RequestParam PessoaResponse response) {
+        Pessoa usuario = pessoaRepository.findByCpf(response.getCpf());
+        return usuario;
     }
 
     @GetMapping("/por-cpf/{cpf}")
@@ -65,7 +76,7 @@ public class PessoaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity atualizarPessoa(@PathVariable int id, @RequestBody Pessoa pessoa) {
+    public ResponseEntity atualizarPessoa(@PathVariable int id, @PathVariable Pessoa pessoa) {
         if (pessoaRepository.existsById(id)) {
             pessoa.setId_usuario(id);
             pessoaRepository.save(pessoa);
@@ -84,4 +95,18 @@ public class PessoaController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
 }
+
+
+
+
+
+//    @PatchMapping("/atualizar-usuario")
+//    public void atualizarPreco(@RequestBody PessoaRequest request) {
+//        pessoaRepository.atualizarPessoa(request.getId_usuario(), request.getNome(), request.getCpf());
+//    }
+//    @GetMapping("/usuarios/")
+//    public ResponseEntity buscarUrl(@RequestParam Integer id) {
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }

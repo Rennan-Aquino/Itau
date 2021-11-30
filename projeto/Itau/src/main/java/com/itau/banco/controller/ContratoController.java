@@ -47,9 +47,9 @@ public class ContratoController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping
-    public ResponseEntity<Contrato> save(@RequestBody Contrato novoContrato) {
-        contratoRepository.save(novoContrato);
-        return new ResponseEntity<>(contratoRepository.save(novoContrato), HttpStatus.CREATED);
-    }
+//    @PostMapping
+//    public ResponseEntity<Contrato> save(@RequestBody Contrato novoContrato) {
+//        contratoRepository.save(novoContrato);
+//        return new ResponseEntity<>(contratoRepository.save(novoContrato), HttpStatus.CREATED);
+//    }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -19,8 +20,9 @@ public class Endereco {
     @Column(name = "id_endereco", nullable = false)
     private Integer id_endereco;
 
-//    @OneToMany(mappedBy = "id_usuario")
-//    private List<Pessoa> pessoas;
+    @ManyToOne
+    @JoinColumn(name = "id_pessoa")
+    private Pessoa pessoas;
 
     @Column(name = "logradouro")
     private String logradouro;
@@ -31,6 +33,9 @@ public class Endereco {
     @Column(name = "estado")
     private String estado;
 
+    @Column(name = "cep")
+    private String cep;
+
     @Column(name = "pais")
     private String pais;
 
@@ -39,6 +44,5 @@ public class Endereco {
 
     @Column(name = "numero")
     private Integer numero;
-
 }
 

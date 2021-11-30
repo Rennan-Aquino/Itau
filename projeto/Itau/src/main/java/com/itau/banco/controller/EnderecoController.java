@@ -1,6 +1,5 @@
 package com.itau.banco.controller;
 
-import com.itau.banco.domain.Contrato;
 import com.itau.banco.domain.Endereco;
 import com.itau.banco.repository.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,21 @@ public class EnderecoController {
 
     @Autowired
     private EnderecoRepository enderecoRepository;
+
+//    @GetMapping("/busca-cep/{id}/{cep}")
+//    public Endereco getEndereco(@PathVariable String cep) {
+//        return enderecoRepository.getEnderecosByCep(cep);
+//    }
+
+//    @PutMapping("editar-cep/{id}/{cep}")
+//    public ResponseEntity atualizarCep(@PathVariable int id, @PathVariable Endereco cep) {
+//        if (enderecoRepository.existsById(id)){
+//            cep.setCep(String.valueOf(cep));
+//            enderecoRepository.save(cep);
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//    }
 
     @GetMapping
     public ResponseEntity<List> findAll() {
@@ -52,6 +66,19 @@ public class EnderecoController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/busca-cep")
+    public Endereco getEndereco() {
+        return Endereco.builder()
+                .id_endereco(1)
+                .cep("09942210")
+                .logradouro("Rua Bernardo Lobo")
+                .complemento("Casa")
+                .cidade("Barueri")
+                .estado("SP")
+                .pais("Brasil")
+                .numero(11).build();
     }
 
 }

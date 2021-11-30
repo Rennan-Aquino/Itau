@@ -24,9 +24,10 @@ public class Contrato {
     @Column(name = "id_contrato", nullable = false)
     private Integer id_contrato;
 
-//    @OneToMany(mappedBy = "id_usuario")
-//    private List<Pessoa> pessoas;
-    
+    @ManyToOne
+    @JoinColumn(name = "id_pessoa")
+    private Pessoa pessoas;
+
     @Column(name = "data_inicio")
     private LocalDateTime dataInicio;
 
@@ -43,3 +44,10 @@ public class Contrato {
     private BigDecimal valorBruto;
 
 }
+
+
+//    @OneToMany(mappedBy = "id_usuario")
+//    private List<Pessoa> pessoas;
+
+//    @OneToOne(mappedBy = "id_usuario")
+//    private List<Pessoa> pessoas;
